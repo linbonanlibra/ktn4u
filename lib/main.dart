@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ktn4u/logic/entity/storage/litedb.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:ktn4u/logic/entity/view/specialty_menu.dart';
+import 'package:ktn4u/logic/entity/view/specialty_book.dart';
 
 void main() {
   runApp(const MyApp());
@@ -94,10 +95,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       appBar: GFAppBar(title: Text(title)),
       body: GFTabBarView(controller: _tabController, children: [
         SpecialtyMenu(),
-        Container(
-          child: Icon(Icons.directions_bus),
-          color: Colors.blue,
-        ),
+        SpecialtyBook(),
         Container(
           child: Icon(Icons.directions_railway),
           color: Colors.orange,

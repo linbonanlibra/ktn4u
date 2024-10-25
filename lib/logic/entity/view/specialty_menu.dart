@@ -53,7 +53,6 @@ class _SpecialtyMenuState extends State<SpecialtyMenu> {
                       setState(() {
                         this._chosenCategoryId = chosenCategory?.id ?? 0;
                       });
-                      print('tap');
                     },
                   );
                 })),

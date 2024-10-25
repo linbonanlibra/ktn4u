@@ -38,6 +38,36 @@ class DishCategory {
   int ordinal;
 
   DishCategory(this.id, this.desc, this.ordinal);
+
+  static DishCategory get EMPTY_CATEGORY =>
+      DishCategory(999998, "空", 999998);
+  static DishCategory get PLACE_HOLDER_CATEGORY =>
+      DishCategory(999999, "占位", 999999);
+}
+
+class DishCategoryManager {
+  static List<DishCategory> _allCategories = List.empty();
+
+  static List<DishCategory> getAllCategories() {
+    if (_allCategories.isEmpty) {
+      loadAllCategories();
+    }
+    return _allCategories;
+  }
+
+  static void loadAllCategories() {
+    //FIXME mock
+    List<DishCategory> categories = [
+      DishCategory(1, "肉类", 1),
+      DishCategory(2, "青菜", 2)
+    ];
+
+    List<DishCategory> tmpCategories = List.empty(growable: true);
+    for (var category in categories) {
+      tmpCategories.add(category);
+    }
+    _allCategories = tmpCategories;
+  }
 }
 
 class Menu {
@@ -85,14 +115,8 @@ class Menu {
   }
 
   void _loadAllCategories() {
-    //FIXME mock
-
-    List<DishCategory> categories = [
-      DishCategory(1, "肉类", 1),
-      DishCategory(2, "青菜", 2)
-    ];
     allCategories = HashMap();
-    for (var category in categories) {
+    for (var category in DishCategoryManager.getAllCategories()) {
       allCategories.update(category.id, (value) => category,
           ifAbsent: () => category);
     }
