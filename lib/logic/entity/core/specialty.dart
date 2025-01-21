@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import '../storage/litedb.dart';
+
 class Dish {
   final int id;
   final String name;
@@ -34,19 +36,25 @@ class DishRecord {
 
 class DishCategory {
   int id;
+  String name;
   String desc;
   int ordinal;
 
-  DishCategory(this.id, this.desc, this.ordinal);
+  DishCategory(this.id, this.name, this.desc, this.ordinal);
+}
 
-  static DishCategory get EMPTY_CATEGORY =>
-      DishCategory(999998, "空", 999998);
-  static DishCategory get PLACE_HOLDER_CATEGORY =>
-      DishCategory(999999, "占位", 999999);
+class CategoryStat {
+  final int id;
+  final String name;
+  final int ordinal;
+  final int recipeCount;
+
+  CategoryStat(this.id, this.name, this.ordinal, this.recipeCount);
 }
 
 class DishCategoryManager {
   static List<DishCategory> _allCategories = List.empty();
+  static Storage localStorage = Storage() ;
 
   static List<DishCategory> getAllCategories() {
     if (_allCategories.isEmpty) {
@@ -58,8 +66,8 @@ class DishCategoryManager {
   static void loadAllCategories() {
     //FIXME mock
     List<DishCategory> categories = [
-      DishCategory(1, "肉类", 1),
-      DishCategory(2, "青菜", 2)
+      DishCategory(1, "肉类","", 1),
+      DishCategory(2, "青菜","", 2)
     ];
 
     List<DishCategory> tmpCategories = List.empty(growable: true);
@@ -67,6 +75,16 @@ class DishCategoryManager {
       tmpCategories.add(category);
     }
     _allCategories = tmpCategories;
+  }
+
+  static Future<List<CategoryStat>> getCategoryStat() async {
+    Map<int, int> countMap = await localStorage.countGroupByCate();
+    List<CategoryStat> stats = [];
+    for (var category in getAllCategories()) {
+      int count = countMap[category.id] ?? 0;
+      stats.add(CategoryStat(category.id, category.name, category.ordinal, count));
+    }
+    return stats;
   }
 }
 

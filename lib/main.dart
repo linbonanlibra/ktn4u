@@ -16,6 +16,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      routes: {
+        '/specialtyMenu': (context) => SpecialtyMenu(),
+        '/specialtyBook': (context) => SpecialtyBook()
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -81,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _changeTab(_tabController.index);
     });
     _changeTab(_tabController.index);
+    Storage().init();
   }
 
   @override

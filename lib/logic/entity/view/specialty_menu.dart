@@ -47,7 +47,7 @@ class _SpecialtyMenuState extends State<SpecialtyMenu> {
                 itemBuilder: (context, index) {
                   DishCategory? chosenCategory = menu.existedCategoryOf(index);
                   return GFListTile(
-                    titleText: chosenCategory?.desc ?? '菜品',
+                    titleText: chosenCategory?.name ?? '菜品',
                     // icon: Icon(Icons.account_balance_wallet_rounded),
                     onTap: () {
                       setState(() {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:ktn4u/logic/entity/core/specialty.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:collection/collection.dart';
+import '../view/new_specialty.dart'; // 导入新页面
 
 class SpecialtyBook extends StatefulWidget {
   @override
@@ -10,69 +8,118 @@ class SpecialtyBook extends StatefulWidget {
 }
 
 class _SpecialtyBookState extends State<SpecialtyBook> {
+  List<DishCategory> categories = [];
+
+  List<DishCategory> _refreshCategories() {
+    List<DishCategory> result = [];
+    DishCategoryManager.getCategoryStat().then((stats) => result.addAll(
+        stats.map((stat) =>
+            DishCategory(name: stat.name, recipeCount: stat.recipeCount))));
+    return result;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    categories = _refreshCategories();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> pageElements = List.empty(growable: true);
-    pageElements.addAll(_buildRows());
-    pageElements.add(const Spacer());
-    pageElements.add(Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(
-          width: 60,
-          height: 60,
-          child: FloatingActionButton(
-            splashColor: Colors.orange,
-            onPressed: () {
-              setState(() {
-                print("add");
-              });
-            },
-            child: Icon(Icons.add),
-          ),
-        )
-      ],
-    ));
-    return Column(children: pageElements);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('菜谱😄'),
+      ),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+        ),
+        itemCount: categories.length + 1,
+        itemBuilder: (context, index) {
+          if (index == categories.length) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewSpecialtyPage()), // 修改跳转页面
+                ).then((res) => {
+                  setState((){
+                    categories = _refreshCategories();
+                  })
+                });
+              },
+              child: Card(
+                color: Colors.grey[200],
+                child: Center(
+                  child: Icon(Icons.add, size: 50),
+                ),
+              ),
+            );
+          } else {
+            final category = categories[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecipeListPage(category: category),
+                  ),
+                );
+              },
+              child: Card(
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Text(category.name),
+                    ),
+                    Positioned(
+                      top: 8,
+                      left: 8,
+                      child: CircleAvatar(
+                        radius: 12,
+                        child: Text('${category.recipeCount}'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 
-  List<Row> _buildRows() {
-    List<DishCategory> categories =
-        List.from(DishCategoryManager.getAllCategories(), growable: true);
-    // categories.add(DishCategory.EMPTY_CATEGORY); // 固定的 “+”
-    // if (categories.length % 2 != 0) {
-    //   categories.add(DishCategory.PLACE_HOLDER_CATEGORY);
-    // }
-
-    categories.sort((a, b) => a.ordinal.compareTo(b.ordinal));
-
-    return ListSlice(categories, 0, categories.length)
-        .slices(2)
-        .map((e) => _buildRow(e))
-        .toList(growable: true);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
+}
 
-  Row _buildRow(List<DishCategory> categories) {
-    return Row(
-        children: List<Widget>.generate(categories.length, (index) {
-      if (DishCategory.EMPTY_CATEGORY.id == categories[index].id) {
-        return Expanded(
-            flex: 1,
-            child: GFListTile(
-                color: Colors.white,
-                titleText: categories[index].desc,
-                icon: Icon(Icons.add_circle)));
-      } else if (DishCategory.PLACE_HOLDER_CATEGORY.id ==
-          categories[index].id) {
-        return Spacer(flex: 1);
-      } else {
-        return Expanded(
-            flex: 1,
-            child: GFListTile(
-                color: Colors.white,
-                titleText: categories[index].desc,
-                icon: Icon(Icons.play_circle)));
-      }
-    }));
+class DishCategory {
+  final String name;
+  final int recipeCount;
+
+  DishCategory({required this.name, required this.recipeCount});
+}
+
+class RecipeListPage extends StatelessWidget {
+  final DishCategory category;
+
+  RecipeListPage({required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('${category.name} Recipes'),
+      ),
+      body: Center(
+        child: Text('List of recipes for ${category.name}'),
+      ),
+    );
   }
 }
