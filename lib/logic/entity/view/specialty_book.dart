@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ktn4u/logic/entity/core/specialty.dart';
+import 'package:ktn4u/logic/entity/view/recipe_llist.dart';
 import '../view/new_specialty.dart'; // 导入新页面
 
 class SpecialtyBook extends StatefulWidget {
@@ -8,13 +9,11 @@ class SpecialtyBook extends StatefulWidget {
 }
 
 class _SpecialtyBookState extends State<SpecialtyBook> {
-  List<DishCategory> categories = [];
+  List<CategoryStat> categories = [];
 
-  List<DishCategory> _refreshCategories() {
-    List<DishCategory> result = [];
-    DishCategoryManager.getCategoryStat().then((stats) => result.addAll(
-        stats.map((stat) =>
-            DishCategory(name: stat.name, recipeCount: stat.recipeCount))));
+  List<CategoryStat> _refreshCategories() {
+    List<CategoryStat> result = [];
+    DishCategoryManager.getCategoryStat().then((stats) => result.addAll(stats));
     return result;
   }
 
@@ -64,7 +63,7 @@ class _SpecialtyBookState extends State<SpecialtyBook> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RecipeListPage(category: category),
+                    builder: (context) => RecipeListPage(categoryId: category.id, categoryName: category.name),
                   ),
                 );
               },
@@ -99,27 +98,4 @@ class _SpecialtyBookState extends State<SpecialtyBook> {
   }
 }
 
-class DishCategory {
-  final String name;
-  final int recipeCount;
 
-  DishCategory({required this.name, required this.recipeCount});
-}
-
-class RecipeListPage extends StatelessWidget {
-  final DishCategory category;
-
-  RecipeListPage({required this.category});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${category.name} Recipes'),
-      ),
-      body: Center(
-        child: Text('List of recipes for ${category.name}'),
-      ),
-    );
-  }
-}

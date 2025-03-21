@@ -13,11 +13,8 @@ class _SpecialtyMenuState extends State<SpecialtyMenu> {
   late int _chosenCategoryId;
 
   _refreshMenu() {
-    //FIXME mock
     menu = Menu();
-    menu.addToMenu(newDish: Dish(1, 'test1', 'pci1', 1));
-    menu.addToMenu(newDish: Dish(2, 'test2', 'pci2', 1));
-    menu.addToMenu(newDish: Dish(3, 'test3', 'pci3', 2));
+    menu.catToDishes = {};
   }
 
   int _categoryCount() {

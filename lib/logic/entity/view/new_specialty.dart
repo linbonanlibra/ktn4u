@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ktn4u/logic/entity/core/specialty.dart';
-import 'package:ktn4u/logic/entity/view/specialty_book.dart';
 import '../storage/litedb.dart';
 
 class NewSpecialtyPage extends StatefulWidget {
@@ -18,7 +17,9 @@ class _NewSpecialtyPageState extends State<NewSpecialtyPage> {
   final List<XFile> _images = [];
   String? _selectedCategory;
 
-  Map<String, int> cateNameToId = { for (var e in DishCategoryManager.getAllCategories()) e.name : e.id };
+  Map<String, int> cateNameToId = {
+    for (var e in DishCategoryManager.getAllCategories()) e.name: e.id
+  };
   final List<String> _categories = DishCategoryManager.getAllCategories()
       .map((category) => category.name)
       .toList(); // 示例分类
@@ -35,12 +36,13 @@ class _NewSpecialtyPageState extends State<NewSpecialtyPage> {
 
   Future<void> _saveDish() async {
     if (_formKey.currentState!.validate()) {
-      final dish = DishDO(
-        name: _nameController.text,
-        description: _descriptionController.text,
-        categoryId: cateNameToId[_selectedCategory!] ?? 0,
-        images: _images.map((file) => file.path).toList(),
-      );
+      final dish = Dish.initFromMap({
+        "name": _nameController.text,
+        "description": _descriptionController.text,
+        "categoryId": cateNameToId[_selectedCategory!] ?? 0,
+        "pics": _images.map((file) => file.path).toList(),
+        "showPic": _images.isNotEmpty ? _images.first.path : null
+      });
 
       final storage = Storage();
       await storage.saveDish(dish);

@@ -3,12 +3,14 @@ import 'dart:collection';
 import '../storage/litedb.dart';
 
 class Dish {
-  final int id;
-  final String name;
-  final String showPic;
+  int? id;
+  String? name;
+  String? showPic;
+  List<String> pics = [];
   int categoryId = -1;
   Recipe? recipe;
   List<DishRecord>? records;
+  int? proficiency;
 
   Map<String, Object?> toMap() {
     return {
@@ -19,7 +21,27 @@ class Dish {
     };
   }
 
-  Dish(this.id, this.name, this.showPic, this.categoryId);
+  Dish(this.name, this.showPic, this.categoryId);
+
+  Dish.initFromMap(Map<String, Object?> map) {
+    name = map['name'] as String;
+    showPic = map['showPic'] != null ? map['showPic'] as String : null;
+    categoryId = map['categoryId'] as int;
+    proficiency = map['proficiency'] != null ? map['proficiency'] as int : 0;
+  }
+
+  Dish.parseFromMap(Map<String, Object?> map) {
+    id = map['id'] as int;
+    name = map['name'] as String;
+    showPic = map['showPic'] as String;
+    categoryId = map['categoryId'] as int;
+    proficiency = map['proficiency'] as int;
+    pics = (map['pics'] as String).split(',').toList();
+  }
+
+  static String defaultPic() {
+    return 'assets/ui/default_dish_pic.png';
+  }
 }
 
 class Recipe {
@@ -54,7 +76,7 @@ class CategoryStat {
 
 class DishCategoryManager {
   static List<DishCategory> _allCategories = List.empty();
-  static Storage localStorage = Storage() ;
+  static Storage localStorage = Storage();
 
   static List<DishCategory> getAllCategories() {
     if (_allCategories.isEmpty) {
@@ -66,8 +88,8 @@ class DishCategoryManager {
   static void loadAllCategories() {
     //FIXME mock
     List<DishCategory> categories = [
-      DishCategory(1, "肉类","", 1),
-      DishCategory(2, "青菜","", 2)
+      DishCategory(1, "肉类", "", 1),
+      DishCategory(2, "青菜", "", 2)
     ];
 
     List<DishCategory> tmpCategories = List.empty(growable: true);
@@ -82,7 +104,8 @@ class DishCategoryManager {
     List<CategoryStat> stats = [];
     for (var category in getAllCategories()) {
       int count = countMap[category.id] ?? 0;
-      stats.add(CategoryStat(category.id, category.name, category.ordinal, count));
+      stats.add(
+          CategoryStat(category.id, category.name, category.ordinal, count));
     }
     return stats;
   }

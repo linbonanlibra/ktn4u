@@ -6,21 +6,30 @@ import '../core/specialty.dart';
 class Storage {
   Future<bool> init() async {
     var dbPath = await getDatabasesPath();
-    Database db = await openDatabase(join(dbPath, 'lite_db.db'), onCreate: (db, version) {
+    Database db =
+        await openDatabase(join(dbPath, 'lite_db.db'), onCreate: (db, version) {
       return db.execute(
-          "CREATE TABLE dish(id integer primary key,name text,showPic text,categoryId integer)");
+          "CREATE TABLE dish(id integer primary key AUTOINCREMENT,name text,showPic text,categoryId integer, proficiency integer,pics text)");
     }, version: 1);
     return true;
   }
 
-  Future<void> saveDish(DishDO dish) async {
+  Future<void> clearAll() async {
+    var dbPath = await getDatabasesPath();
+    Database db = await openDatabase(join(dbPath, 'lite_db.db'));
+    await db.rawDelete('delete from dish');
+  }
+
+  Future<void> saveDish(Dish dish) async {
     var dbPath = await getDatabasesPath();
     Database db = await openDatabase(join(dbPath, 'lite_db.db'));
 
     await db.insert('dish', {
       'name': dish.name,
-      'showPic': dish.images.join(','),
+      'showPic': dish.showPic ?? '',
       'categoryId': dish.categoryId,
+      'proficiency': dish.proficiency,
+      'pics': dish.pics.isEmpty ? '' : dish.pics.join(','),
     });
   }
 
@@ -38,20 +47,15 @@ class Storage {
     return countMap;
   }
 
-  Future<List<DishDO>> queryDishByCate(int cateId) async {
+  Future<List<Dish>> queryDishByCate(int cateId) async {
     var dbPath = await getDatabasesPath();
     Database db = await openDatabase(join(dbPath, 'lite_db.db'));
 
-    List<Map<String, Object?>> records = await db.rawQuery(
-        'SELECT * FROM dish WHERE categoryId = $cateId order by id');
-    List<DishDO> result = [];
+    List<Map<String, Object?>> records = await db
+        .rawQuery('SELECT * FROM dish WHERE categoryId = $cateId order by id');
+    List<Dish> result = [];
     for (var record in records) {
-      result.add(DishDO(
-        name: record['name'] as String,
-        description: record['description'] as String,
-        categoryId: record['categoryId'] as int,
-        images: (record['showPic'] as String).split(','),
-      ));
+      result.add(Dish.parseFromMap(record));
     }
     return result;
   }
