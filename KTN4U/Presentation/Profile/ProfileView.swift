@@ -77,18 +77,14 @@ struct ProfileView: View {
     private var heroSection: some View {
         HStack(spacing: 20) {
             // 头像
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.orange.opacity(0.6), .pink.opacity(0.4)],
-                            startPoint: .topLeading, endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 72, height: 72)
-                Text("👨‍🍳")
-                    .font(.system(size: 36))
-            }
+            Image("AvatarPhoto")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 72, height: 72)
+                .clipShape(Circle())
+                .overlay(Circle().strokeBorder(.regularMaterial, lineWidth: 2))
+                .shadow(radius: 4, y: 2)
+                .accessibilityLabel("个人头像")
 
             VStack(alignment: .leading, spacing: 6) {
                 Text("我的厨房")
