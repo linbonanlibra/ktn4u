@@ -1,0 +1,82 @@
+name: KTN4U
+
+options:
+  bundleIdPrefix: com.ktn4u
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  indentWidth: 4
+  tabWidth: 4
+  defaultConfig: Debug
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_PREVIEWS: YES
+
+targets:
+
+  # ── Main App ────────────────────────────────────────────────────
+  KTN4U:
+    type: application
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: KTN4U
+        createIntermediateGroups: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ktn4u.app
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSCameraUsageDescription: "拍摄菜品照片"
+        INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "从相册选取菜品照片"
+        INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription: "保存菜品图片到相册"
+        INFOPLIST_KEY_CFBundleDisplayName: "KTN4U"
+        CODE_SIGN_ENTITLEMENTS: KTN4U/KTN4U.entitlements
+    dependencies:
+      - target: KTN4UWidget
+        embed: true
+      - sdk: WidgetKit.framework   # for WidgetCenter.shared.reloadTimelines
+
+  # ── Widget Extension ────────────────────────────────────────────
+  KTN4UWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: KTN4UWidget
+        createIntermediateGroups: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.ktn4u.app.widget
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: KTN4UWidget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: KTN4UWidget/KTN4UWidget.entitlements
+    dependencies:
+      - sdk: WidgetKit.framework
+      - sdk: SwiftUI.framework
+
+  # ── Unit Tests ──────────────────────────────────────────────────
+  KTN4UTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: KTN4UTests
+        createIntermediateGroups: true
+    settings:
+      base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/KTN4U.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KTN4U"
+    dependencies:
+      - target: KTN4U

@@ -1,0 +1,2 @@
+Target dependency graph (1 target)
+Target 'KTN4UWidget' in project 'KTN4U' (no dependencies)

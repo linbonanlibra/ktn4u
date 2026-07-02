@@ -1,0 +1,19 @@
+{
+  "" : {
+    "diagnostics" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/KTN4UWidget-primary.dia",
+    "emit-module-dependencies" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/KTN4UWidget-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/KTN4UWidget-primary-emit-module.dia",
+    "pch" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/KTN4UWidget-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/KTN4UWidget-primary.swiftdeps"
+  },
+  "/Users/linbonan03/Documents/workspace/ktn4u/KTN4UWidget/FridgeExpiryWidget.swift" : {
+    "const-values" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.swiftconstvalues",
+    "dependencies" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.d",
+    "diagnostics" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.dia",
+    "index-unit-output-path" : "/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.o",
+    "llvm-bc" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.bc",
+    "object" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.o",
+    "swift-dependencies" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget.swiftdeps",
+    "swiftmodule" : "/Users/linbonan03/Documents/workspace/ktn4u/build/KTN4U.build/Debug-iphoneos/KTN4UWidget.build/Objects-normal/arm64/FridgeExpiryWidget~partial.swiftmodule"
+  }
+}
