@@ -20,6 +20,11 @@ settings:
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_PREVIEWS: YES
+    # ── 签名 ──────────────────────────────────────────────────────────
+    # CODE_SIGN_STYLE = Automatic：由 Xcode 自动管理 Provisioning Profile。
+    # xcodegen generate 后，在 Xcode → Signing & Capabilities 选择 Team 即可。
+    CODE_SIGN_STYLE: Automatic
+    # DEVELOPMENT_TEAM: "XXXXXXXXXX"  ← 如需 CI 自动签名，填入 10 位 Team ID
 
 targets:
 
@@ -46,7 +51,7 @@ targets:
     dependencies:
       - target: KTN4UWidget
         embed: true
-      - sdk: WidgetKit.framework   # for WidgetCenter.shared.reloadTimelines
+      - sdk: WidgetKit.framework   # WidgetCenter.shared.reloadTimelines
 
   # ── Widget Extension ────────────────────────────────────────────
   KTN4UWidget:

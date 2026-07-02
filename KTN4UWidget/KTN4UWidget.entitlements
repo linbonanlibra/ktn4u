@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- Widget 侧 App Group，与主 App 共享冰箱预警数据。         -->
+    <!-- 配置步骤同 KTN4U.entitlements 注释说明。                -->
+    <!-- 未配置时注释掉下方键，Widget 展示占位数据。                -->
     <key>com.apple.security.application-groups</key>
     <array>
         <string>group.com.ktn4u.app</string>

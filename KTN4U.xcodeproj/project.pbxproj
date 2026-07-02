@@ -184,7 +184,7 @@
 		E720D20EF6C5140BC877CC11 /* KTN4UApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTN4UApp.swift; sourceTree = "<group>"; };
 		E908FB3C1217F10B2BEA7E2C /* MenuOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOrderView.swift; sourceTree = "<group>"; };
 		EA6939450DD38224A6AE279C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		F81FE90DB07B363B33B4ADC9 /* KTN4UWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.extensionkit-extension"; path = KTN4UWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F81FE90DB07B363B33B4ADC9 /* KTN4UWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KTN4UWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F91894E29435196935E735DB /* CategoryTreeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTreeTests.swift; sourceTree = "<group>"; };
 		FFEAF5DC3541CD032239C5DE /* FridgeExpiryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FridgeExpiryWidget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -553,6 +553,17 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					117F0A8D88DF80A661FC9A71 = {
+						ProvisioningStyle = Automatic;
+					};
+					B2FB3BC358DEBC62704AED6D = {
+						ProvisioningStyle = Automatic;
+					};
+					FB29C3A25D64D17C984D9346 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 1E660D0B3976485F7160F1DC /* Build configuration list for PBXProject "KTN4U" */;
 			developmentRegion = en;
@@ -723,6 +734,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -753,6 +765,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = KTN4UWidget/KTN4UWidget.entitlements;
+				DEVELOPMENT_TEAM = X874FY7VS2;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = KTN4UWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -771,6 +784,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = KTN4UWidget/KTN4UWidget.entitlements;
+				DEVELOPMENT_TEAM = X874FY7VS2;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = KTN4UWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
@@ -877,6 +891,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
